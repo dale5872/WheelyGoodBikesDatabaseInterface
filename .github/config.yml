@@ -1,3 +1,4 @@
 todo:
   keyword: ["TODO:", "@TODO", "@todo"]
   bodyKeyword: ["BODY:", "@BODY", "@body"]
+  label: ["todo", "enhancement"]
