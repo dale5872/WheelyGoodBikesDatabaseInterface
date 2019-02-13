@@ -14,8 +14,8 @@ $conn = connect();
 //Get the data
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 /**
- * TODO create a script that randomly changes a user's password
- * BODY When script runs, all user data EXCEPT password is updated, new feature needed for resetting a password
+ * @TODO create a script that randomly changes a user's password
+ * @BODY When script runs, all user data EXCEPT password is updated, new feature needed for resetting a password
  */
 $password = mysqli_real_escape_string($conn, $_POST['password']);
 $account_type = mysqli_real_escape_string($conn, $_POST['account_type']);
