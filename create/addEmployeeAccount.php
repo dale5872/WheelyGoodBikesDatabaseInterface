@@ -18,16 +18,16 @@ $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
 $email = mysqli_real_escape_string($conn, $_POST['email']);
 $phone = mysqli_real_escape_string($conn, $_POST['phone']);
 
-/**
- * @TODO Fix an unknown error in inserting Employee Account
- * @BODY An unknown error is occuring (i.e. no error output using curl) when
- * attempting to insert into database. Data is inserted into user account but then fails.
- */
 //first we create a query to add the user account and retrieve the user id
 //create the query to execute
 $sql_query = "INSERT INTO user VALUES (null, '$account_type', '$username', '$password');";
 //execute query and get results
 
+/**
+ * @TODO Fix an unknown error in inserting Employee Account
+ * @BODY An unknown error is occuring (i.e. no error output using curl) when
+ * attempting to insert into database. Data is inserted into user account but then fails.
+ */
 if($conn->query($sql_query) === TRUE) {
     //stored successfully, we can continue
     //we need to get the user id of the inserted user
