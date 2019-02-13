@@ -6,7 +6,10 @@
  * Time: 23:51
  */
 
+include("../databaseConnector.php");
 //NO DATA
+
+$conn = connect();
 
 //create the query to execute
 $sql_query = "SELECT location.locationID, location.name FROM location;";
@@ -16,6 +19,7 @@ $result = $conn->query($sql_query);
 
 if($result->num_rows > 0) {
     //we have a match, create an array to store all the rows
+    echo "Match";
     $rows = array();
 
     //loop through all the rows in the result set
@@ -32,7 +36,6 @@ if($result->num_rows > 0) {
     //this is so the json can encode as [{"error" : "..."}]
     $arr = array('error' => 'empty');
     echo json_encode($arr);
-    $login_failed = true;
 }
 
 //ALWAYS CLOSE CONNECTION

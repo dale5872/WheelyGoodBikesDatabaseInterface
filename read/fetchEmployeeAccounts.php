@@ -14,6 +14,8 @@
 
 include('../databaseConnector.php');
 
+//get connection object
+$conn = connect();
 // Get data from the HTTP POST request
 $account_type = mysqli_real_escape_string($conn, $_POST['account_type']);
 
@@ -59,7 +61,6 @@ if($result->num_rows > 0) {
     //this is so the json can encode as [{"error" : "..."}]
     $arr = array('error' => 'empty');
     echo json_encode($arr);
-    $login_failed = true;
 }
 
 //ALWAYS CLOSE CONNECTION

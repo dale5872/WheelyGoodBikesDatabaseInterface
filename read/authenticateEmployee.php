@@ -21,7 +21,6 @@ include('../databaseConnector.php');
 
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
-$login_failed = false;
 /**
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -75,7 +74,6 @@ WHERE user.userID = '$user_id';";
     //this is so the json can encode as [{"error" : "..."}]
     $arr = array('error' => 'Login details are incorrect!');
     echo json_encode($arr);
-    $login_failed = true;
 }
 
 //ALWAYS CLOSE CONNECTION

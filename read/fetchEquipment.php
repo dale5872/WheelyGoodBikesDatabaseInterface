@@ -8,6 +8,9 @@
 
 include('../databaseConnector.php');
 
+//get connection object
+$conn = connect();
+
 //NO DATA
 
 //create the query to execute
@@ -39,7 +42,6 @@ if($result->num_rows > 0) {
     //this is so the json can encode as [{"error" : "..."}]
     $arr = array('error' => 'empty');
     echo json_encode($arr);
-    $login_failed = true;
 }
 
 //ALWAYS CLOSE CONNECTION
