@@ -3,9 +3,13 @@
  * Created by PhpStorm.
  * User: dalebaker-allan
  * Date: 2019-02-12
- * Time: 21:44
+ * Time: 23:18
  */
 
+/**
+ * We want to use the ID generated from @script login.php
+ * to authenticate the user and fetch their data
+ */
 
 include('../databaseConnector.php');
 
@@ -17,10 +21,11 @@ include('../databaseConnector.php');
 
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
+$login_failed = false;
 /**
 $username = $_POST['username'];
 $password = $_POST['password'];
-**/
+ **/
 //create the query to execute
 $sql_query = "SELECT user.userID FROM user WHERE username = '$username' AND password = '$password'";
 
@@ -28,17 +33,35 @@ $sql_query = "SELECT user.userID FROM user WHERE username = '$username' AND pass
 $result = $conn->query($sql_query);
 
 if($result->num_rows == 1) {
-    //we have a match, create an array to store all the rows
-    $rows = array();
+    //as we have (and expect) one result, get the userID of the account
 
-    //loop through all the rows in the result set
+    //get the first row
+    $row = $result->fetch_assoc();
+
+    //row['<name>'] are the same as the database columns
+    $user_id = $row['userID'];
+
+    //create a new query, returning all the employee info
+    $sql_query = "SELECT user.userID, user.username, employees.employeeID, location.locationID, location.name AS 'location', employee_info.firstName,
+       employee_info.lastName, employee_info.workEmail, employee_info.workTel, account_types.type
+FROM user
+INNER JOIN employees ON user.userID = employees.userID
+INNER JOIN employee_info ON employees.employeeID = employee_info.employeeID
+INNER JOIN account_types ON user.accountTypeID = account_types.accountTypeID
+INNER JOIN location ON employees.location = location.locationID
+WHERE user.userID = '$user_id';";
+
+    //get result
+    $result = $conn->query($sql_query);
+
+    //create an array of rows, this is for the JSON encoder
+    $json_array = array();
     while($row = $result->fetch_assoc()) {
-        //add current row into array
-        $rows[] = $row;
+        $json_array[] = $row;
     }
 
     //output as json encoded text
-    echo json_encode($rows);
+    echo json_encode($json_array);
 } else if($result->num_rows > 1) {
     //we have duplicate values
     //create an array with 'error' tag that maps to the error,
