@@ -14,7 +14,7 @@ $conn = connect();
 //data
 $location_name = mysqli_real_escape_string($conn, $_POST['location_name']);
 
-$sql_string = "INSERT INTO location VALUES (null, '$location_name');";
+$sql_query = "INSERT INTO location VALUES (null, '$location_name');";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate

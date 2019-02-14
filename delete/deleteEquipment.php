@@ -14,7 +14,7 @@ $conn = connect();
 //data
 $equipment_id = mysqli_real_escape_string($conn, $_POST['equipment_id']);
 
-$sql_string = "DELETE FROM equipment_stock WHERE equipmentID = '$equipment_id';";
+$sql_query = "DELETE FROM equipment_stock WHERE equipmentID = '$equipment_id';";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate

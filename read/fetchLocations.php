@@ -19,7 +19,6 @@ $result = $conn->query($sql_query);
 
 if($result->num_rows > 0) {
     //we have a match, create an array to store all the rows
-    echo "Match";
     $rows = array();
 
     //loop through all the rows in the result set

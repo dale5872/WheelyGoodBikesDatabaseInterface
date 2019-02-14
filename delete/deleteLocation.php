@@ -14,7 +14,7 @@ $conn = connect();
 //data
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 
-$sql_string = "DELETE FROM location WHERE locationID = '$location_id';";
+$sql_query = "DELETE FROM location WHERE locationID = '$location_id';";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate

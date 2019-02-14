@@ -15,7 +15,7 @@ $conn = connect();
 $location_name = mysqli_real_escape_string($conn, $_POST['location_name']);
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 
-$sql_string = "UPDATE location SET location.name = '$location_name' WHERE location.locationID = '$location_id';";
+$sql_query = "UPDATE location SET location.name = '$location_name' WHERE location.locationID = '$location_id';";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate

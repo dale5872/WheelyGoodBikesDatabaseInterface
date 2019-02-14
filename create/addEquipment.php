@@ -16,7 +16,7 @@ $equipment_type = mysqli_real_escape_string($conn, $_POST['location_name']);
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 
-$sql_string = "INSERT INTO equipment_stock VALUES (null, '$equipment_type', '$location_id', '$status');";
+$sql_query = "INSERT INTO equipment_stock VALUES (null, '$equipment_type', '$location_id', '$status');";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
