@@ -2,17 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
- * Date: 2019-02-12
- * Time: 23:51
+ * Date: 2019-02-15
+ * Time: 01:29
  */
 
-include("../databaseConnector.php");
-//NO DATA
+include('../databaseConnector.php');
 
 $conn = connect();
 
 //create the query to execute
-$sql_query = "SELECT location.locationID, location.name FROM location;";
+$sql_query = "SELECT bikeTypeID, bikeType FROM bike_type;";
 
 //execute query and get results
 $result = $conn->query($sql_query);

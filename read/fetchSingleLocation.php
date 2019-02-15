@@ -2,18 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
- * Date: 2019-02-12
- * Time: 23:51
+ * Date: 2019-02-14
+ * Time: 17:47
  */
 
 include("../databaseConnector.php");
-//NO DATA
 
 $conn = connect();
 
-//create the query to execute
-$sql_query = "SELECT location.locationID, location.name FROM location;";
+//get data
+$location_name = mysqli_real_escape_string($conn, $_POST['location_name']);
 
+//create the query to execute
+$sql_query = "SELECT location.locationID FROM location WHERE location.name='$location_name';";
 //execute query and get results
 $result = $conn->query($sql_query);
 

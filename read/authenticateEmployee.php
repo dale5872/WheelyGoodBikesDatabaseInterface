@@ -13,6 +13,8 @@
 
 include('../databaseConnector.php');
 
+$conn = connect();
+
 // Get data from the HTTP POST request
 // $_POST['...'], ... is defined in the sending of the post request
 //we need to sanitize the input to prevent SQL injection
@@ -21,10 +23,7 @@ include('../databaseConnector.php');
 
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
-/**
-$username = $_POST['username'];
-$password = $_POST['password'];
- **/
+
 //create the query to execute
 $sql_query = "SELECT user.userID FROM user WHERE username = '$username' AND password = '$password'";
 
@@ -54,13 +53,15 @@ WHERE user.userID = '$user_id';";
     $result = $conn->query($sql_query);
 
     //create an array of rows, this is for the JSON encoder
-    $json_array = array();
+    $rows = array();
     while($row = $result->fetch_assoc()) {
-        $json_array[] = $row;
+        $rows[] = $row;
     }
 
     //output as json encoded text
-    echo json_encode($json_array);
+
+    $arr = array('status' => 'success', 'data' => $rows);
+    echo json_encode($arr);
 } else if($result->num_rows > 1) {
     //we have duplicate values
     //create an array with 'error' tag that maps to the error,

@@ -2,17 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
- * Date: 2019-02-12
- * Time: 23:51
+ * Date: 2019-02-15
+ * Time: 01:27
  */
 
-include("../databaseConnector.php");
-//NO DATA
+include('../databaseConnector.php');
 
 $conn = connect();
 
 //create the query to execute
-$sql_query = "SELECT location.locationID, location.name FROM location;";
+$sql_query = "SELECT accountTypeID, type FROM account_types;";
 
 //execute query and get results
 $result = $conn->query($sql_query);

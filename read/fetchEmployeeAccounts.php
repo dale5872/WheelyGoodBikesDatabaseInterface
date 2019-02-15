@@ -21,9 +21,9 @@ $account_type = mysqli_real_escape_string($conn, $_POST['account_type']);
 
 //check if account type is empty
 //create the query to execute
-if($account_type == null) {
+if($account_type === "") {
     $sql_query = "SELECT employees.employeeID, user.username,  employee_info.firstName, employee_info.lastName,
-       employee_info.workEmail, employee_info.workTel, account_types.type, location.name AS 'location'
+       employee_info.workEmail, employee_info.workTel, account_types.type, location.name AS 'location', location.locationID, user.userID
 FROM user
 INNER JOIN employees ON user.userID = employees.userID
 INNER JOIN employee_info ON employees.employeeID = employee_info.employeeID
@@ -54,7 +54,8 @@ if($result->num_rows > 0) {
     }
 
     //output as json encoded text
-    echo json_encode($rows);
+    $arr = array('status' => 'success', 'data' => $rows);
+    echo json_encode($arr);
 } else if($result->num_rows == 0) {
     //no match
     //create an array with 'error' tag that maps to the error,
