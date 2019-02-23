@@ -19,7 +19,7 @@ $employee_id = mysqli_real_escape_string($conn, $_POST['employee_id']);
 $sql_query = "DELETE FROM employee_info WHERE employeeID = '$employee_id'";
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not delete Employee information.', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not delete Employee information.', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
@@ -27,7 +27,7 @@ if($conn->query($sql_query) !== TRUE) {
 $sql_query = "DELETE FROM employees WHERE employeeID = '$employee_id' AND userID = '$user_id'"; // .= operator concatenates to the string
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not delete Employee.', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not delete Employee.', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
@@ -35,12 +35,12 @@ if($conn->query($sql_query) !== TRUE) {
 $sql_query = "DELETE FROM user WHERE userID = '$user_id'";
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not delete user account.', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not delete user account.', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
 
-$arr = array('success' => 'User deleted');
+$arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();

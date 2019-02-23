@@ -43,14 +43,14 @@ if($result->num_rows == 1) {
     //we have duplicate values
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]
-    $arr = array('error' => 'There is more than one account! Contact the database administrator');
+    $arr = array('status' => 'error', 'message' => 'There is more than one account! Contact the database administrator', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     $login_failed = true;
 } else if($result->num_rows == 0) {
     //no match
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]
-    $arr = array('error' => 'Login details are incorrect!');
+    $arr = array('status' => 'error', 'message' => 'Login Details are incorrect', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     $login_failed = true;
 }

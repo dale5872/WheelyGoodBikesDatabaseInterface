@@ -20,12 +20,12 @@ $sql_query = "INSERT INTO equipment_stock VALUES (null, '$equipment_type', '$loc
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not create new equipment', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not create new equipment', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
 
-$arr = array('success' => 'Equipment added');
+$arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();

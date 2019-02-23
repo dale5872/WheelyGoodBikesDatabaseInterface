@@ -19,12 +19,12 @@ $sql_query = "UPDATE location SET location.name = '$location_name' WHERE locatio
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not update location', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not update location', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
 
-$arr = array('success' => 'Location updated');
+$arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();

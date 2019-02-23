@@ -18,12 +18,12 @@ $sql_query = "DELETE FROM equipment_stock WHERE equipmentID = '$equipment_id';";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not create new location', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not create new location', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
 
-$arr = array('success' => 'Location deleted');
+$arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();

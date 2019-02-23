@@ -51,7 +51,7 @@ if($result->num_rows > 0) {
     //no match
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]
-    $arr = array('status' => 'error', 'message' => 'Empty Dataset');
+    $arr = array('status' => 'error', 'message' => 'empty', 'stackTrace' => $conn->error);
     echo json_encode($arr);
 }
 

@@ -23,12 +23,12 @@ $sql_query = "UPDATE equipment_stock SET equipment_stock.equipmentType = '$equip
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('error' => 'Could not update equipment', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not update equipment', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
 
-$arr = array('success' => 'Equipment updated');
+$arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();

@@ -31,7 +31,7 @@ $sql_query = "UPDATE user SET accountTypeID='$account_type', username='$username
 if($conn->query($sql_query) !== TRUE) {
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]
-    $arr = array('error' => 'Could not update user!', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not update user!', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
@@ -41,7 +41,7 @@ $sql_query = "UPDATE employees SET location='$location_id' WHERE userID='$user_i
 if($conn->query($sql_query) !== TRUE) {
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]
-    $arr = array('error' => 'Could not update user!', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not update user!', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
@@ -51,12 +51,12 @@ $sql_query = "UPDATE employee_info SET firstName='$first_name', lastName='$last_
 if($conn->query($sql_query) !== TRUE) {
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]
-    $arr = array('error' => 'Could not update user!', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not update user!', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
 
-$arr = array('success' => 'User updated');
+$arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();
