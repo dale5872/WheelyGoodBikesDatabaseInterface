@@ -12,6 +12,9 @@ $conn = connect();
 
 //Get the data
 $username = mysqli_real_escape_string($conn, $_POST['username']);
+/**
+ * TODO: Encrypt users passwords
+ */
 $password = mysqli_real_escape_string($conn, $_POST['password']);
 $account_type = mysqli_real_escape_string($conn, $_POST['account_type']);
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);

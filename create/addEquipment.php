@@ -12,7 +12,7 @@ include("../databaseConnector.php");
 $conn = connect();
 
 //data
-$equipment_type = mysqli_real_escape_string($conn, $_POST['location_name']);
+$equipment_type = mysqli_real_escape_string($conn, $_POST['equipment_type']);
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 

@@ -22,6 +22,9 @@ $conn = connect();
 //$conn refers to the connection object from databaseConnector.php
 
 $username = mysqli_real_escape_string($conn, $_POST['username']);
+/**
+ * TODO: Encrypt passwords before storing in database
+ */
 $password = mysqli_real_escape_string($conn, $_POST['password']);
 
 //create the query to execute
