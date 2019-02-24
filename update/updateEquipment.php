@@ -19,8 +19,9 @@ $equipment_id = mysqli_real_escape_string($conn, $_POST['equipment_id']);
 
 $sql_query = "UPDATE equipment_stock SET equipment_stock.equipmentType = '$equipment_type', 
     equipment_stock.location='$location_id', 
-     equipment_stock.equipmentStatus = '$staus' 
+     equipment_stock.equipmentStatus = '$status' 
     WHERE equipment_stock.equipmentID = '$equipment_id';";
+
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
