@@ -11,11 +11,20 @@ include("../databaseConnector.php");
 
 $conn = connect();
 
-//create the query to execute
-$sql_query = "SELECT location.locationID, location.name FROM location;";
+$search = mysqli_real_escape_string($conn, $_POST['search']);
 
+//create the query to execute
+if($search === "") {
+    $sql_query = "SELECT location.locationID, location.name FROM location;";
+} else {
+    //we have a search query
+    $sql_query = "SELECT location.locationID, location.name FROM location
+WHERE location.name LIKE '%$search%';";
+
+}
 //execute query and get results
 $result = $conn->query($sql_query);
+
 
 if($result->num_rows > 0) {
     //we have a match, create an array to store all the rows

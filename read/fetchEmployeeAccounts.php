@@ -48,11 +48,11 @@ INNER JOIN employees ON user.userID = employees.userID
 INNER JOIN employee_info ON employees.employeeID = employee_info.employeeID
 INNER JOIN account_types ON user.accountTypeID = account_types.accountTypeID
 INNER JOIN location ON employees.location = location.locationID
-WHERE employees.employeeID LIKE '$search' 
-    OR user.username LIKE '$search' 
-    OR employee_info.firstName LIKE '$search' 
-    OR employee_info.lastName LIKE '$search' 
-    OR employee_info.workEmail LIKE '$search' 
+WHERE employees.employeeID LIKE '%$search%' 
+    OR user.username LIKE '%$search%' 
+    OR employee_info.firstName LIKE '%$search%' 
+    OR employee_info.lastName LIKE '%$search%' 
+    OR employee_info.workEmail LIKE '%$search%' 
     OR employee_info.workTel LIKE '$search' 
     OR location.name LIKE '$search';";
 } else {
@@ -64,11 +64,11 @@ INNER JOIN employees ON user.userID = employees.userID
 INNER JOIN employee_info ON employees.employeeID = employee_info.employeeID
 INNER JOIN account_types ON user.accountTypeID = account_types.accountTypeID
 INNER JOIN location ON employees.location = location.locationID
-WHERE employees.employeeID LIKE '$search' 
-    OR user.username LIKE '$search' 
-    OR employee_info.firstName LIKE '$search' 
-    OR employee_info.lastName LIKE '$search' 
-    OR employee_info.workEmail LIKE '$search' 
+WHERE employees.employeeID LIKE '%$search%' 
+    OR user.username LIKE '%$search%' 
+    OR employee_info.firstName LIKE '%$search%' 
+    OR employee_info.lastName LIKE '%$search%' 
+    OR employee_info.workEmail LIKE '%$search%' 
     OR employee_info.workTel LIKE '$search' 
     OR location.name LIKE '$search'
 HAVING account_types.type = '$account_type';";
