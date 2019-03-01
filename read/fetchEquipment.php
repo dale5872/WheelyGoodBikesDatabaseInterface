@@ -57,7 +57,7 @@ INNER JOIN equipment_type ON equipment_stock.equipmentType = equipment_type.equi
  OR location.name LIKE '%$search%'
  OR equipment_stock.equipmentStatus LIKE '$search'
  OR equipment_type.pricePerHour LIKE '$search'
- HAVING location.locationID = '$location_id';";
+HAVING equipment_stock.location = '$location_id';";
 }
 //execute query and get results
 $result = $conn->query($sql_query);
