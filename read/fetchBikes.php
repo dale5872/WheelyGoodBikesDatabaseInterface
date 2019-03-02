@@ -13,52 +13,42 @@ $conn = connect();
 
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 $search = mysqli_real_escape_string($conn, $_POST['search']);
+$bike_type = mysqli_real_escape_string($conn, $_POST['type']);
 
 //create the query to execute
 
-if($location_id === "" && $search === "") {
-    $sql_query = "SELECT bike_stock.bikeID, bike_stock.bikeType, bike_type.bikeType AS 'bikeName',
+//Base query
+$sql_query = "SELECT bike_stock.bikeID, bike_stock.bikeType, bike_type.bikeType AS 'bikeName',
        bike_stock.location, location.name,
        bike_stock.bikeStatus, bike_type.pricePerHour
 FROM bike_stock
 INNER JOIN location ON bike_stock.location = location.locationID
-INNER JOIN bike_type ON bike_stock.bikeType = bike_type.bikeTypeID;";
-} else if($location_id !== "" && $search === "") {
-    $sql_query = "SELECT bike_stock.bikeID, bike_stock.bikeType, bike_type.bikeType AS 'bikeName',
-       bike_stock.location, location.name,
-       bike_stock.bikeStatus, bike_type.pricePerHour
-FROM bike_stock
-INNER JOIN location ON bike_stock.location = location.locationID
-INNER JOIN bike_type ON bike_stock.bikeType = bike_type.bikeTypeID
- WHERE location.locationID = '$location_id';";
-} else if($location_id === "" && $search !=="") {
-    $sql_query = "SELECT bike_stock.bikeID, bike_stock.bikeType, bike_type.bikeType AS 'bikeName',
-       bike_stock.location, location.name,
-       bike_stock.bikeStatus, bike_type.pricePerHour
-FROM bike_stock
-INNER JOIN location ON bike_stock.location = location.locationID
-INNER JOIN bike_type ON bike_stock.bikeType = bike_type.bikeTypeID
- WHERE bike_stock.bikeID LIKE '%$search%'
- OR bike_stock.bikeType LIKE '%$search%'
- OR bike_type.bikeType LIKE '%$search%'
- OR location.name LIKE '%$search%'
- OR bike_stock.bikeStatus LIKE '$search'
- OR bike_type.pricePerHour LIKE '$search';";
-} else {
-    $sql_query = "SELECT bike_stock.bikeID, bike_stock.bikeType, bike_type.bikeType AS 'bikeName',
-       bike_stock.location, location.name,
-       bike_stock.bikeStatus, bike_type.pricePerHour
-FROM bike_stock
-INNER JOIN location ON bike_stock.location = location.locationID
-INNER JOIN bike_type ON bike_stock.bikeType = bike_type.bikeTypeID
- WHERE bike_stock.bikeID LIKE '%$search%'
- OR bike_stock.bikeType LIKE '%$search%'
- OR bike_type.bikeType LIKE '%$search%'
- OR location.name LIKE '%$search%'
- OR bike_stock.bikeStatus LIKE '$search'
- OR bike_type.pricePerHour LIKE '$search'
-HAVING bike_stock.location = '$location_id';";
+INNER JOIN bike_type ON bike_stock.bikeType = bike_type.bikeTypeID";
+$sql_query .= "\n";
+
+//add search queries
+if($search !== "") {
+    $sql_query .= "WHERE bike_stock.bikeID LIKE '%" . $search . "%'
+ OR bike_stock.bikeType LIKE '%" . $search . "%'
+ OR bike_type.bikeType LIKE '%" . $search . "%'
+ OR location.name LIKE '%" . $search . "%'
+ OR bike_stock.bikeStatus LIKE '" . $search . "'
+ OR bike_type.pricePerHour LIKE '" . $search . "'\n";
 }
+
+//add location
+if($location_id !== "") {
+    $sql_query .= "HAVING bike_stock.location = " . $location_id . "\n";
+}
+
+if($bike_type !== "" && $location_id !== "") {
+    $sql_query .= "AND bike_type.bikeType = '" . $bike_type . "'";
+} else if($bike_type !== "") {
+    //just the type
+    $sql_query .= "HAVING bike_type.bikeType = '" . $bike_type . "'";
+}
+
+
 //execute query and get results
 $result = $conn->query($sql_query);
 
