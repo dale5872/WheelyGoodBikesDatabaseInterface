@@ -9,6 +9,8 @@
 
 include('../databaseConnector.php');
 
+$conn = connect();
+
 // Get data from the HTTP POST request
 // $_POST['...'], ... is defined in the sending of the post request
 //we need to sanitize the input to prevent SQL injection
@@ -22,7 +24,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 **/
 //create the query to execute
-$sql_query = "SELECT user.userID FROM user WHERE username = '$username' AND password = '$password'";
+$sql_query = "SELECT user.userID FROM user WHERE username = '$username' AND password = '$password' AND user.accountTypeID = 1";
 
 //execute query and get results
 $result = $conn->query($sql_query);

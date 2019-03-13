@@ -2,24 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
- * Date: 2019-02-15
- * Time: 01:28
+ * Date: 2019-03-12
+ * Time: 18:57
  */
+
 
 include('../databaseConnector.php');
 
+//get connection object
 $conn = connect();
 
-$return_type = mysqli_real_escape_string($conn, $_POST['return_type']);
+$location = mysqli_real_escape_string($conn, $_POST['location']);
+$fromDate = mysqli_real_escape_string($conn, $_POST['fromDate']);
+$toDate = mysqli_real_escape_string($conn, $_POST['toDate']);
 
-//create the query to execute
-if($return_type === "dropdown") {
-    $sql_query = "SELECT equipmentTypeID, equipmentType FROM equipment_type;";
-} else if($return_type === "table") {
-    $sql_query = "SELECT equipmentTypeID, equipmentType, pricePerHour, image FROM equipment_type;";
-}
-
-//execute query and get results
+$sql_query = "SELECT bike_rentals.startTime, SUM(cost) FROM bike_rentals 
+GROUP BY returnTime BETWEEN '$fromDate' AND '$toDate'";
 $result = $conn->query($sql_query);
 
 if($result->num_rows > 0) {
@@ -43,5 +41,10 @@ if($result->num_rows > 0) {
     echo json_encode($arr);
 }
 
-//ALWAYS CLOSE CONNECTION
+//echo realpath("../../Reports");
+$filename = realpath("../../Reports") . "/l" . $location_id ."_revenueReport_" . $date . ".wgb";
+$file = fopen($filename, "w") or die(print_r(error_get_last(), true));
+fwrite($file, json_encode($arr));
+fclose($file);
+
 $conn->close();

@@ -16,7 +16,7 @@ $bike_type = mysqli_real_escape_string($conn, $_POST['bike_type']);
 $image = mysqli_real_escape_string($conn, $_POST['image']);
 $pricePerHour = mysqli_real_escape_string($conn, $_POST['pricePerHour']);
 
-$sql_query = "INSERT INTO bike_type VALUES (null, '$bike_type', '$image', '$pricePerHour');";
+$sql_query = "INSERT INTO bike_type VALUES (null, '$bike_type', '$pricePerHour', '$image');";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate

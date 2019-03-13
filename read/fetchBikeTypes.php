@@ -10,8 +10,14 @@ include('../databaseConnector.php');
 
 $conn = connect();
 
+$return_type = mysqli_real_escape_string($conn, $_POST['return_type']);
+
 //create the query to execute
-$sql_query = "SELECT bikeTypeID, bikeType FROM bike_type;";
+if($return_type === "dropdown") {
+    $sql_query = "SELECT bikeTypeID, bikeType FROM bike_type;";
+} else if($return_type === "table") {
+    $sql_query = "SELECT bikeTypeID, bikeType, pricePerHour, image FROM bike_type;";
+}
 
 //execute query and get results
 $result = $conn->query($sql_query);
