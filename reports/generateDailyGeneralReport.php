@@ -43,6 +43,19 @@ if($result->num_rows > 0) {
         $rows[] = $row;
     }
 
+    //echo realpath("../../Reports");
+    $filepath = realpath("../../Reports/General/location" . $location_id);
+    $filename = "/" . $date . ".wgb";
+
+    if(!file_exists($filepath)) {
+        $arr = array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => 'Folder does not exist');
+        die(json_encode($arr));
+    }
+
+    $file = fopen($filepath.$filename, "w") or die(json_encode(array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
+    fwrite($file, json_encode($arr));
+    fclose($file);
+
     //output as json encoded text
     $arr = array('status' => 'success', 'data' => $rows);
     echo json_encode($arr);
@@ -54,11 +67,6 @@ if($result->num_rows > 0) {
     echo json_encode($arr);
 }
 
-//echo realpath("../../Reports");
-$filename = realpath("../../Reports") . "/l" . $location_id ."_dailyGeneralReport_" . $date . ".wgb";
-$file = fopen($filename, "w") or die(print_r(error_get_last(), true));
-fwrite($file, json_encode($arr));
-fclose($file);
 /**
  * TODO: Save reports to server in JSON form so the exact data can be retrieved again
  */

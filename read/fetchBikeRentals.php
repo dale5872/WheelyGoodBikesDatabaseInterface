@@ -12,13 +12,28 @@ include('../databaseConnector.php');
 $conn = connect();
 
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
+$search = mysqli_real_escape_string($conn, $_POST['search']);
 
 //create the query to execute
-
-$sql_query = "SELECT bike_rentals.bikeRentalID, bike_rentals.userID, bike_rentals.bikeID, bike_rentals.location,
+if($search !== "") {
+    $sql_query = "SELECT bike_rentals.bikeRentalID, bike_rentals.userID, bike_rentals.bikeID, bike_rentals.location,
        bike_rentals.cost, bike_rentals.startTime, bike_rentals.returnTime, bike_rentals.status
 FROM bike_rentals
 WHERE bike_rentals.location = '$location_id';";
+} else {
+    $sql_query = "SELECT bike_rentals.bikeRentalID, bike_rentals.userID, bike_rentals.bikeID, bike_rentals.location,
+       bike_rentals.cost, bike_rentals.startTime, bike_rentals.returnTime, bike_rentals.status
+FROM bike_rentals
+WHERE bike_rentals.bikeRentalID LIKE '%" . $search . "%'
+OR bike_rentals.userID LIKE '" . $search . "'
+OR bike_rentals.bikeID LIKE '" . $search . "'
+OR bike_rentals.location LIKE '%" . $search . "%'
+OR bike_rentals.cost LIKE '" . $search . "'
+OR bike_rentals.startTime LIKE '%" . $search . "%'
+OR bike_rentals.returnTime LIKE '%" . $search . "%'
+OR bike_rentals.status LIKE '%" . $search . "%'
+HAVING bike_rentals.location = '$location_id';";
+}
 
 //execute query and get results
 $result = $conn->query($sql_query);

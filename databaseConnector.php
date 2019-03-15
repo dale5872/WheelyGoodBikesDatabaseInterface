@@ -8,10 +8,10 @@
 function connect()
 {
 // Database information
-    $host = "REDACTED";
-    $user = "REDACTED";
-    $pass = "REDACTED";
-    $database = "REDACTED";
+    $host = "mysql-server-1.macs.hw.ac.uk";
+    $user = "db47";
+    $pass = "7WwEnz9n99";
+    $database = "db47";
 
 //create connection object
     $conn = new mysqli($host, $user, $pass, $database);

@@ -42,7 +42,7 @@ if($result->num_rows > 0) {
 }
 
 //echo realpath("../../Reports");
-$filename = realpath("../../Reports") . "/l" . $location_id ."_revenueReport_" . $date . ".wgb";
+$filename = realpath("../../Reports/Revenue/location" . $location_id) . "/" . $fromDate . " -> " . $toDate . ".wgb";
 $file = fopen($filename, "w") or die(print_r(error_get_last(), true));
 fwrite($file, json_encode($arr));
 fclose($file);
