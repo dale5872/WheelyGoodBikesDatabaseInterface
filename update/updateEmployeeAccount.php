@@ -29,6 +29,7 @@ $email = mysqli_real_escape_string($conn, $_POST['email']);
 $phone = mysqli_real_escape_string($conn, $_POST['phone']);
 $employee_id = mysqli_real_escape_string($conn, $_POST['employee_id']);
 $user_id = mysqli_real_escape_string($conn, $_POST['user_id']);
+$profile_picture = mysqli_real_escape_string($conn, $_POST['profile_picture']);
 
 $sql_query = "UPDATE user SET accountTypeID='$account_type', username='$username' WHERE user.userID='$user_id';";
 if($conn->query($sql_query) !== TRUE) {
@@ -50,7 +51,7 @@ if($conn->query($sql_query) !== TRUE) {
 }
 
 //continue
-$sql_query = "UPDATE employee_info SET firstName='$first_name', lastName='$last_name', workEmail='$email', workTel='$phone' WHERE employeeID='$employee_id';";
+$sql_query = "UPDATE employee_info SET firstName='$first_name', lastName='$last_name', workEmail='$email', workTel='$phone', profilePicture='$profile_picture' WHERE employeeID='$employee_id';";
 if($conn->query($sql_query) !== TRUE) {
     //create an array with 'error' tag that maps to the error,
     //this is so the json can encode as [{"error" : "..."}]

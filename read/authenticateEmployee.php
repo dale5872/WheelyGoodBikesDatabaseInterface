@@ -44,7 +44,7 @@ if($result->num_rows == 1) {
 
     //create a new query, returning all the employee info
     $sql_query = "SELECT user.userID, user.username, employees.employeeID, location.locationID, location.name AS 'location', employee_info.firstName,
-       employee_info.lastName, employee_info.workEmail, employee_info.workTel, account_types.type
+       employee_info.lastName, employee_info.workEmail, employee_info.workTel, employee_info.profilePicture, account_types.type
 FROM user
 INNER JOIN employees ON user.userID = employees.userID
 INNER JOIN employee_info ON employees.employeeID = employee_info.employeeID
