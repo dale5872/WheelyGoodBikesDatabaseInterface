@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
- * Date: 2019-03-15
- * Time: 22:28
+ * Date: 2019-03-16
+ * Time: 20:36
  */
 
-$dirPath = realpath("../../Reports/");
+$dirPath = realpath("../../Images/");
 
 rrmdir($dirPath);
 
