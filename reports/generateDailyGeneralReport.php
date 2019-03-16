@@ -29,6 +29,7 @@ $filepath = realpath("../../Reports/General/");
 $filepath = $filepath . "/location" . $location_id . "/";
 $filename = $date . ".wgb";
 $dir = $filepath . $filename;
+/**
 if(file_exists($dir)) {
     $file = fopen($dir, "r") or die(json_encode(array('status' => 'error', 'message' => '1Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
     $output = fread($file, filesize($dir));
@@ -37,13 +38,14 @@ if(file_exists($dir)) {
     echo $output;
     return;
 }
-
+**/
 /** NUMBER OF USERS */
 $sql_query = "SELECT
        SUM(IF(startTime BETWEEN '$date 00:00:00' AND '$date 23:59:59', 1, 0)) AS Rentals,
-       SUM(DISTINCT userID AND startTime BETWEEN '$date 00:00:00' AND '$date 23:59:59') AS Users,
+       (SELECT COUNT(DISTINCT userID) FROM bike_rentals WHERE startTime BETWEEN '$date 00:00:00' AND '$date 23:59:59' AND bike_rentals.location = '$location_id') AS Users,
        SUM(IF(returnTime BETWEEN returnTime AND '$date 23:59:59' AND status = 'Ongoing', 1, 0)) AS Late
-FROM bike_rentals;";
+FROM bike_rentals
+WHERE bike_rentals.location = '$location_id';";
 
 //execute query and get results
 $result = $conn->query($sql_query);

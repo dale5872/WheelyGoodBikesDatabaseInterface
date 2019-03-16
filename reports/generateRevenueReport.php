@@ -20,6 +20,7 @@ $filepath = realpath("../../Reports/Revenue/");
 $fileLocation = $filepath . "/location" . $location;
 $dir = $fileLocation . "/" . $fromDate . " - " . $toDate . ".wgb";
 
+/**
 if(file_exists($dir)) {
     $file = fopen($dir, "r") or die(json_encode(array('status' => 'error', 'message' => '1Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
     $output = fread($file, filesize($dir));
@@ -29,9 +30,14 @@ if(file_exists($dir)) {
     return;
 }
 echo $filename;
+ * **/
 
-$sql_query = "SELECT bike_rentals.startTime, SUM(cost) FROM bike_rentals 
-GROUP BY returnTime BETWEEN '$fromDate' AND '$toDate'";
+$sql_query = "SELECT
+       CAST(startTime AS DATE) AS \"Date\", SUM(cost) AS \"Revenue\"
+FROM bike_rentals
+WHERE startTime BETWEEN '$fromDate' AND '$toDate'
+AND location = '$location'
+GROUP BY CAST(startTime AS DATE);";
 $result = $conn->query($sql_query);
 
 if($result->num_rows > 0) {
