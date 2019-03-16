@@ -11,12 +11,21 @@ include('../databaseConnector.php');
 $conn = connect();
 
 $return_type = mysqli_real_escape_string($conn, $_POST['return_type']);
+$search = mysqli_real_escape_string($conn, $_POST['search']);
 
 //create the query to execute
 if($return_type === "dropdown") {
     $sql_query = "SELECT equipmentTypeID, equipmentType FROM equipment_type;";
 } else if($return_type === "table") {
-    $sql_query = "SELECT equipmentTypeID, equipmentType, pricePerHour, image FROM equipment_type;";
+    if($search === "") {
+        $sql_query = "SELECT equipmentTypeID, equipmentType, pricePerHour, image FROM equipment_type;";
+    } else {
+        $sql_query = "SELECT equipmentTypeID, equipmentType, pricePerHour, image FROM equipment_type
+          WHERE equipmentTypeID LIKE '%$search%'
+            OR equipmentType LIKE '%$search%'
+            OR pricePerHour LIKE '%$search%'
+            OR image LIKE '%$search%';";
+    }
 }
 
 //execute query and get results

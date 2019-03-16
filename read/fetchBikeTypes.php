@@ -11,12 +11,21 @@ include('../databaseConnector.php');
 $conn = connect();
 
 $return_type = mysqli_real_escape_string($conn, $_POST['return_type']);
+$search = mysqli_real_escape_string($conn, $_POST['search']);
 
 //create the query to execute
 if($return_type === "dropdown") {
-    $sql_query = "SELECT bikeTypeID, bikeType FROM bike_type;";
+        $sql_query = "SELECT bikeTypeID, bikeType FROM bike_type;";
 } else if($return_type === "table") {
-    $sql_query = "SELECT bikeTypeID, bikeType, pricePerHour, image FROM bike_type;";
+    if($search === "") {
+        $sql_query = "SELECT bikeTypeID, bikeType, pricePerHour, image FROM bike_type;";
+    } else {
+        $sql_query = "SELECT bikeTypeID, bikeType, pricePerHour, image FROM bike_type
+          WHERE bikeTypeID LIKE '%$search%'
+            OR bikeType LIKE '%$search%'
+            OR pricePerHour LIKE '%$search%'
+            OR image LIKE '%$search%';";
+    }
 }
 
 //execute query and get results
