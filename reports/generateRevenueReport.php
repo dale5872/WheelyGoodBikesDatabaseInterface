@@ -12,9 +12,23 @@ include('../databaseConnector.php');
 //get connection object
 $conn = connect();
 
-$location = mysqli_real_escape_string($conn, $_POST['location']);
+$location = mysqli_real_escape_string($conn, $_POST['location_id']);
 $fromDate = mysqli_real_escape_string($conn, $_POST['fromDate']);
 $toDate = mysqli_real_escape_string($conn, $_POST['toDate']);
+
+$filepath = realpath("../../Reports/Revenue/");
+$fileLocation = $filepath . "/location" . $location;
+$dir = $fileLocation . "/" . $fromDate . " - " . $toDate . ".wgb";
+
+if(file_exists($dir)) {
+    $file = fopen($dir, "r") or die(json_encode(array('status' => 'error', 'message' => '1Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
+    $output = fread($file, filesize($dir));
+    fclose($file);
+    $conn->close();
+    echo $output;
+    return;
+}
+echo $filename;
 
 $sql_query = "SELECT bike_rentals.startTime, SUM(cost) FROM bike_rentals 
 GROUP BY returnTime BETWEEN '$fromDate' AND '$toDate'";
@@ -30,8 +44,21 @@ if($result->num_rows > 0) {
         $rows[] = $row;
     }
 
+    if(!file_exists($fileLocation)) {
+        $res = mkdir($fileLocation, 0777, true);
+        if($res !== true) {
+            $arr = array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => 'Folder does not exist');
+            die(json_encode($arr));
+        }
+    }
+
     //output as json encoded text
     $arr = array('status' => 'success', 'data' => $rows);
+
+    $file = fopen($dir, "w") or die(json_encode(array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
+    fwrite($file, json_encode($arr));
+    fclose($file);
+
     echo json_encode($arr);
 } else if($result->num_rows == 0) {
     //no match
@@ -40,11 +67,5 @@ if($result->num_rows > 0) {
     $arr = array('status' => 'error', 'message' => 'empty', 'stackTrace' => $conn->error);
     echo json_encode($arr);
 }
-
-//echo realpath("../../Reports");
-$filename = realpath("../../Reports/Revenue/location" . $location_id) . "/" . $fromDate . " -> " . $toDate . ".wgb";
-$file = fopen($filename, "w") or die(print_r(error_get_last(), true));
-fwrite($file, json_encode($arr));
-fclose($file);
 
 $conn->close();

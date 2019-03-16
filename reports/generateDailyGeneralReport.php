@@ -23,6 +23,21 @@ $conn = connect();
 $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 $date = mysqli_real_escape_string($conn, $_POST['date']);
 
+
+//check the file doesnt already exist, if so then just return it
+$filepath = realpath("../../Reports/General/");
+$filepath = $filepath . "/location" . $location_id . "/";
+$filename = $date . ".wgb";
+$dir = $filepath . $filename;
+if(file_exists($dir)) {
+    $file = fopen($dir, "r") or die(json_encode(array('status' => 'error', 'message' => '1Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
+    $output = fread($file, filesize($dir));
+    fclose($file);
+    $conn->close();
+    echo $output;
+    return;
+}
+
 /** NUMBER OF USERS */
 $sql_query = "SELECT
        SUM(IF(startTime BETWEEN '$date 00:00:00' AND '$date 23:59:59', 1, 0)) AS Rentals,
@@ -43,21 +58,21 @@ if($result->num_rows > 0) {
         $rows[] = $row;
     }
 
-    //echo realpath("../../Reports");
-    $filepath = realpath("../../Reports/General/location" . $location_id);
-    $filename = "/" . $date . ".wgb";
-
     if(!file_exists($filepath)) {
-        $arr = array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => 'Folder does not exist');
-        die(json_encode($arr));
+        $res = mkdir($filepath, 0777, true);
+        if($res !== true) {
+            $arr = array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => 'Folder does not exist');
+            die(json_encode($arr));
+        }
     }
+
+    //output as json encoded text
+    $arr = array('status' => 'success', 'data' => $rows);
 
     $file = fopen($filepath.$filename, "w") or die(json_encode(array('status' => 'error', 'message' => 'Cannot store report, contact an administrator and check the log files', 'stackTrace' => print_r(error_get_last(), true))));
     fwrite($file, json_encode($arr));
     fclose($file);
 
-    //output as json encoded text
-    $arr = array('status' => 'success', 'data' => $rows);
     echo json_encode($arr);
 } else if($result->num_rows == 0) {
     //no match
@@ -66,9 +81,5 @@ if($result->num_rows > 0) {
     $arr = array('status' => 'error', 'message' => 'empty', 'stackTrace' => $conn->error);
     echo json_encode($arr);
 }
-
-/**
- * TODO: Save reports to server in JSON form so the exact data can be retrieved again
- */
 
 $conn->close();

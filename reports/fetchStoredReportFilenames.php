@@ -6,10 +6,12 @@
  * Time: 13:41
  */
 
-$report = $_POST['folder'];
-$location = $_POST['location'];
+$report = $_POST['report'];
+$location = $_POST['location_id'];
 
-$dir = realpath("../../Reports/" . $report . "/location" . $location);
+$dir = realpath("../../Reports/") or die ("could not find folder");
+$dir = $dir . "/" . $report . "/location" . $location . "/";
+
 $files = scandir($dir);
 
 //remove '.' and '..' entries

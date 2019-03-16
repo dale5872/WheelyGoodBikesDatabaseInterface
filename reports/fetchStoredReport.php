@@ -6,9 +6,11 @@
  * Time: 13:46
  */
 
+$report = $_POST['report'];
+$location = $_POST['location_id'];
 $filename = $_POST['filename'];
 
-$dir = realpath("../../Reports") . "/" . $filename;
+$dir = realpath("../../Reports") . "/" . $report . "/location" . $location . "/" . $filename;
 
 $file = fopen($dir, "r") or die("Could not open file " . $dir . "!");
 $output = fread($file, filesize($dir));

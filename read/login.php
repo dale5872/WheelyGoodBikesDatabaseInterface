@@ -19,10 +19,7 @@ $conn = connect();
 
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
-/**
-$username = $_POST['username'];
-$password = $_POST['password'];
-**/
+
 //create the query to execute
 $sql_query = "SELECT user.userID FROM user WHERE username = '$username' AND password = '$password' AND user.accountTypeID = 1";
 
