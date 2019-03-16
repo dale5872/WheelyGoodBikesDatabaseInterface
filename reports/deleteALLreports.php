@@ -6,9 +6,8 @@
  * Time: 22:28
  */
 
-$dirPath = realpath("../../Reports/");
-
-rrmdir($dirPath);
+rrmdir(realpath("../../Reports/General/"));
+rrmdir(realpath("../../Reports/Revenue/"));
 
 function rrmdir($dir) {
     if (is_dir($dir)) {
