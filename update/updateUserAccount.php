@@ -6,6 +6,7 @@
  * Time: 20:06
  */
 
+ header("Access-Control-Allow-Origin: *");
 include("../databaseConnector.php");
 
 //connection object

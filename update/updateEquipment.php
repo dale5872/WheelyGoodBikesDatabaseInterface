@@ -8,6 +8,7 @@
 
 include("../databaseConnector.php");
 
+header("Access-Control-Allow-Origin: *");
 //connection object
 $conn = connect();
 
@@ -17,9 +18,9 @@ $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 $equipment_id = mysqli_real_escape_string($conn, $_POST['equipment_id']);
 
-$sql_query = "UPDATE equipment_stock SET equipment_stock.equipmentType = '$equipment_type', 
-    equipment_stock.location='$location_id', 
-     equipment_stock.equipmentStatus = '$status' 
+$sql_query = "UPDATE equipment_stock SET equipment_stock.equipmentType = '$equipment_type',
+    equipment_stock.location='$location_id',
+     equipment_stock.equipmentStatus = '$status'
     WHERE equipment_stock.equipmentID = '$equipment_id';";
 
 

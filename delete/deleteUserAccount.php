@@ -1,4 +1,7 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
+
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
@@ -35,4 +38,3 @@ $arr = array('status' => 'success');
 echo json_encode($arr);
 
 $conn->close();
-

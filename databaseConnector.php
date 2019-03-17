@@ -5,6 +5,8 @@
  * Date: 2019-02-12
  * Time: 21:45
  */
+
+ header("Access-Control-Allow-Origin: *");
 function connect()
 {
 // Database information

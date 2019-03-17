@@ -1,10 +1,11 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 /**
  * Created by PhpStorm.
- * User: dalebaker-allan
- * Date: 2019-02-13
- * Time: 20:32
+ * User: dale
+ * Date: 17/03/19
+ * Time: 13:48
  */
 
 include("../databaseConnector.php");
@@ -12,14 +13,13 @@ include("../databaseConnector.php");
 //connection object
 $conn = connect();
 
-//data
-$location_name = mysqli_real_escape_string($conn, $_POST['location_name']);
+$user_id = mysqli_real_escape_string($conn, $_POST['user_id']);
 
-$sql_query = "INSERT INTO location VALUES (null, '$location_name');";
+$sql_query = "DELETE FROM suspended WHERE userID = '$user_id';";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
-    $arr = array('status' => 'error', 'message' => 'Could not create new location', 'stackTrace' => $conn->error);
+    $arr = array('status' => 'error', 'message' => 'Could not create new bike type', 'stackTrace' => $conn->error);
     echo json_encode($arr);
     die();
 }
