@@ -6,7 +6,12 @@
  * Time: 21:45
  */
 
- header("Access-Control-Allow-Origin: *");
+ var express = require('express')
+ var cors = require('cors')
+ var app = express()
+
+ app.use(cors())
+
 function connect()
 {
 // Database information

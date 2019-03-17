@@ -8,7 +8,6 @@
 
 include("../databaseConnector.php");
 
-header("Access-Control-Allow-Origin: *");
 //connection object
 $conn = connect();
 

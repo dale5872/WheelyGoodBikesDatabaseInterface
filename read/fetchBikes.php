@@ -1,6 +1,9 @@
 <?php
+var express = require('express')
+var cors = require('cors')
+var app = express()
 
-header("Access-Control-Allow-Origin: *");
+app.use(cors())
 /**
  * Created by PhpStorm.
  * User: dale
