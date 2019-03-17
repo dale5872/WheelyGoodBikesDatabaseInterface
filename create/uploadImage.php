@@ -23,7 +23,7 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 // Check if file already exists
 if (file_exists($target_file)) {
-    echo "Error";
+    //echo "Error";
     $uploadOk = 0;
 }
 // Check file size
@@ -39,7 +39,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Error";
+    //echo "Error";
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
