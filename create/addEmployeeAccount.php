@@ -82,7 +82,7 @@ $row = $results->fetch_assoc();
 $employee_id = $row['employeeID'];
 
 //success, continue
-$sql_query = "INSERT INTO employee_info VALUES ('$employee_id', '$first_name', '$last_name', '$email', '$phone');";
+$sql_query = "INSERT INTO employee_info VALUES ('$employee_id', '$first_name', '$last_name', '$email', '$phone', null);";
 
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
