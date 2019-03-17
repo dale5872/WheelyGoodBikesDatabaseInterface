@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
@@ -50,4 +51,3 @@ if ($uploadOk == 0) {
 }
 
 echo "http://www2.macs.hw.ac.uk/~db47/WheelyGoodBikes/Images/" . basename($_FILES["fileToUpload"]["name"]);
-

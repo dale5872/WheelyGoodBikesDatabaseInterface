@@ -1,4 +1,6 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
 /**
  * Created by PhpStorm.
  * User: dale

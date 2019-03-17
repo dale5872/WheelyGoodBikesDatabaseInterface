@@ -1,4 +1,6 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
 /**
  * Created by PhpStorm.
  * User: dale
@@ -17,9 +19,9 @@ $location_id = mysqli_real_escape_string($conn, $_POST['location_id']);
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 $bike_id = mysqli_real_escape_string($conn, $_POST['bike_id']);
 
-$sql_query = "UPDATE bike_stock SET bike_stock.bikeType = '$bike_type', 
-    bike_stock.location='$location_id', 
-     bike_stock.bikeStatus = '$status' 
+$sql_query = "UPDATE bike_stock SET bike_stock.bikeType = '$bike_type',
+    bike_stock.location='$location_id',
+     bike_stock.bikeStatus = '$status'
     WHERE bike_stock.bikeID = '$bike_id';";
 
 

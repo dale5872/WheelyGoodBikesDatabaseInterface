@@ -1,4 +1,6 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
 /**
  * Created by PhpStorm.
  * User: dalebaker-allan
@@ -33,7 +35,7 @@ INNER JOIN account_types ON user.accountTypeID = 1;";
 FROM user
 INNER JOIN user_info ON user.userID = user_info.userID
 INNER JOIN account_types ON user.accountTypeID = 1
-WHERE username LIKE '%$search%' 
+WHERE username LIKE '%$search%'
     OR firstName LIKE '%$search%'
     OR lastName LIKE '%$search%'
     OR email LIKE '$search'
