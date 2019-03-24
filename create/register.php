@@ -16,7 +16,7 @@ $line2 = mysqli_real_escape_string($conn, $_POST['line2']);
 $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
 $county = mysqli_real_escape_string($conn, $_POST['county']);
 
-$sql_query = "INSERT INTO user VALUES (null, '1', '$username', '$password', null);";
+$sql_query = "INSERT INTO user VALUES (null, '1', '$username', '$password');";
 if($conn->query($sql_query) !== TRUE) {
     //error, terminate
     $arr = array('status' => 'error', 'message' => 'Could not create new user', 'stackTrace' => $conn->error);
