@@ -53,4 +53,3 @@ $conn->close();
  * Example command to test post request from Linux/Mac terminal
  * curl -v -H "Accept:application/json" -X POST -F "username=admin" -F "password=admin" http://www2.macs.hw.ac.uk/~db47/WheelyGoodBikes/DatabaseLayer/read/login.php
  */
- ?>

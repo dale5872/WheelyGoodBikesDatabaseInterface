@@ -62,5 +62,3 @@ $arr = array('status' => 'success');
 echo json_encode($arr);
 //ALWAYS CLOSE CONNECTION
 $conn->close();
-
-?>
