@@ -1,6 +1,6 @@
 <?php
 
-include('databaseConnector.php');
+include('../databaseConnector.php');
 
 $conn = connect();
 $user_id = mysqli_real_escape_string($conn, $_POST['user_id']);
