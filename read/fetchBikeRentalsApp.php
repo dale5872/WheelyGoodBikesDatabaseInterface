@@ -15,7 +15,7 @@ $sql_query = "SELECT
                 bike_rentals.returnTime,
                 bike_rentals.status
                 FROM bike_rentals
-                WHERE bike_rentals.location = '$user_id';";
+                WHERE bike_rentals.userID = '$user_id';";
 
 $result = $conn->query($sql_query);
 if($result->num_rows > 0) {
